@@ -27,15 +27,16 @@ $(document).ready(function()
                     //    alert(usersnb);
                     //}
                 });
-                wilddog.sync().ref("/courtuser").onDisconnect().update({
-                    "usersnb" : usersnb-1
-                })
+
                 });
         wilddog.sync().ref("/courtuser").on('child_changed',
             function (snapshot) {
                 var ub = snapshot.val();
                 $("span").remove();
                 $(".court").append("<span>"+ ub +"</span>");
+                wilddog.sync().ref("/courtuser").onDisconnect().update({
+                    "usersnb" : ub-1
+                })
             });
 
 
