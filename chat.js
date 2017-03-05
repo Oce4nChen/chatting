@@ -1,13 +1,11 @@
 
 $(document).ready(function()
     {
-        $(".chat").slideDown(1500);
         var config = {
             authDomain: "cchatting.wilddog.com",
             syncURL: "https://cchatting.wilddogio.com"
         };
         wilddog.initializeApp(config);
-
         wilddog.sync().ref("/courtuser/usersnb").once('value',
             function (snapshot) {
                 var usersnb = snapshot.val();
@@ -27,14 +25,18 @@ $(document).ready(function()
                 var ub = snapshot.val();
                 $("span").remove();
                 $(".court").append("<span>"+ ub +"</span>");
+                wilddog.sync().ref("/courtuser").onDisconnect().update({
+                    "usersnb" : ub-1
+                })
 
             });
-        wilddog.sync().ref("/courtuser/usersnb").once('value',
-            function (snapshot) {
-                var wb = snapshot.val();
-        wilddog.sync().ref("/courtuser").onDisconnect().update({
-            "usersnb" : wb-1
-        })
-            });
+
+        //wilddog.sync().ref("/courtuser/usersnb").once('value',
+        //    function (snapshot) {
+        //        var wb = snapshot.val();
+        //wilddog.sync().ref("/courtuser").onDisconnect().update({
+        //    "usersnb" : wb-1
+        //})
+        //    });
        }
 );
