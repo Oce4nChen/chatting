@@ -22,7 +22,7 @@ $(document).ready(function()
                 });
 
                 });
-        wilddog.sync().ref("/courtuser").once('child_changed',
+        wilddog.sync().ref("/courtuser").on('child_changed',
             function (snapshot) {
                 var ub = snapshot.val();
                 $("span").remove();
