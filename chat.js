@@ -7,15 +7,21 @@ $(document).ready(function()
         };
         wilddog.initializeApp(config);
 
-        var connectedRef = wilddog.sync().ref("/.info/connected");
-        connectedRef.on("value", function(snap) {
-            var user =0;
-            if (snap.val() === true) {
-              var users = user+1;
-            } else {
-            }
-            $(".court").append(users);
-        });
+        wilddog.sync().ref("/courtuser/usersnb").once('value',
+            function (snapshot) {
+                var usersnb = snapshot.val();
+                usersnb+=1;
+                var connectedRef = wilddog.sync().ref("/.info/connected");
+                connectedRef.once("value", function (snap) {
+                    if (snap.val() === true) {
+                        wilddog.sync().ref("/courtuser").update({
+                            "usersnb"  : usersnb
+                        });
+                        alert(usersnb);
+                        $(".court").append(usersnb);
+                    }
+                });
+                });
 
-        }
+       }
 );
