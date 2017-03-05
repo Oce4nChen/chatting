@@ -19,13 +19,6 @@ $(document).ready(function()
                             "usersnb"  : usersnb
                         });
                     }
-                    //if (snap.val() === false) {
-                    //    usersnb-=1;
-                    //    wilddog.sync().ref("/courtuser").update({
-                    //        "usersnb"  : usersnb
-                    //    });
-                    //    alert(usersnb);
-                    //}
                 });
 
                 });
@@ -34,11 +27,14 @@ $(document).ready(function()
                 var ub = snapshot.val();
                 $("span").remove();
                 $(".court").append("<span>"+ ub +"</span>");
-                wilddog.sync().ref("/courtuser").onDisconnect().update({
-                    "usersnb" : ub-1
-                })
+
             });
-
-
+        wilddog.sync().ref("/courtuser/usersnb").once('value',
+            function (snapshot) {
+                var wb = snapshot.val();
+        wilddog.sync().ref("/courtuser").onDisconnect().update({
+            "usersnb" : wb-1
+        })
+            });
        }
 );
