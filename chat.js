@@ -1,6 +1,7 @@
 
 $(document).ready(function()
     {
+        $(".chat").slideDown(1500);
         var config = {
             authDomain: "cchatting.wilddog.com",
             syncURL: "https://cchatting.wilddogio.com"
@@ -10,18 +11,33 @@ $(document).ready(function()
         wilddog.sync().ref("/courtuser/usersnb").once('value',
             function (snapshot) {
                 var usersnb = snapshot.val();
-                usersnb+=1;
                 var connectedRef = wilddog.sync().ref("/.info/connected");
                 connectedRef.once("value", function (snap) {
                     if (snap.val() === true) {
+                        usersnb+=1;
                         wilddog.sync().ref("/courtuser").update({
                             "usersnb"  : usersnb
                         });
-                        alert(usersnb);
-                        $(".court").append(usersnb);
                     }
+                    //if (snap.val() === false) {
+                    //    usersnb-=1;
+                    //    wilddog.sync().ref("/courtuser").update({
+                    //        "usersnb"  : usersnb
+                    //    });
+                    //    alert(usersnb);
+                    //}
                 });
+                wilddog.sync().ref("/courtuser").onDisconnect().update({
+                    "usersnb" : usersnb-1
+                })
                 });
+        wilddog.sync().ref("/courtuser").on('child_changed',
+            function (snapshot) {
+                var ub = snapshot.val();
+                $("span").remove();
+                $(".court").append("<span>"+ ub +"</span>");
+            });
+
 
        }
 );
