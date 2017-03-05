@@ -1,6 +1,6 @@
 .chat{
     border: 2px solid royalblue;
-    width: 300px;
+    width: 90%;
     height:380px;
     box-shadow:10px 10px 5px #888888;
     margin-bottom: 12px;
@@ -8,16 +8,18 @@
 }
 .chatword{
     float: none;
-    width: 296px;
+    width:89%;
     height: 350px;
     background-color: darkgrey;
+    margin: 0 auto;
 }
 .send{
-
+    display: block;
     width: inherit;
     height: 36px;
     text-align: center;
+    margin: 0 auto;
 }
 .inp{
-    width: 239px;
+    width: 80%;
 }
