@@ -23,3 +23,7 @@
 .inp{
     width: 80%;
 }
+.btn_1{
+    background-color: red;
+    display: block;
+}
