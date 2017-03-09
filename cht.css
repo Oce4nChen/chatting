@@ -1,4 +1,5 @@
 .chat{
+
     border: 2px solid royalblue;
     width: 90%;
     height:380px;
@@ -12,6 +13,7 @@
     height: 350px;
     background-color: darkgrey;
     margin: 0 auto;
+    overflow: scroll;
 }
 .send{
     display: block;

@@ -1,5 +1,6 @@
 $(document).ready(function()
     {
+        //$(".chat").slideDown(1500);
         var config = {
             authDomain: "cchatting.wilddog.com",
             syncURL: "https://cchatting.wilddogio.com"
@@ -36,7 +37,7 @@ $(document).ready(function()
                      var a = snapshot.val();
                       a-=1;
                      wilddog.sync().ref("/courtuser").set({
-                         "usersnb" : a
+                        "usersnb" : a
                      })
                  })
 
@@ -53,5 +54,37 @@ $(document).ready(function()
         //);
 
          })
+        var ref =wilddog.sync().ref("/users");
+        $(".sub").click(function(){
+             var text =  $(".inp").val();
+            var t = new Date();
+            var ts = t.getFullYear()+"/"+ (t.getMonth()+1)+"/"+ t.getDate()+"/"+ t.getHours()+"点"+ t.getMinutes()+"分 ：";
+            ref.child("message").push(ts + text);
+            $(".inp").val("").focus();
+
+        });
+        ref.child("message").on("child_added", function(snapshot) {
+            var text = snapshot.val();
+            var textObj = $("<div class=\"dm_message\" style='position: relative'></div>");
+            textObj.text(text);
+            $(".chatword").append(textObj);
+            $(".chatword").scrollTop(9999);
+            textObj.css({
+                left :1000
+            })
+            textObj.animate({left:0},1000*Math.random())
+        });
+        //var moveObj = function(obj) {
+        //    var p = 500;
+        //    obj.css({
+        //        right:p
+        //    });
+        //    var time = 1000 + 1000 * Math.random();
+        //    obj.animate({
+        //        left:p
+        //    }, time);
+        //}
+
+
     }
 );
